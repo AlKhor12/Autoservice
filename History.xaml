@@ -1,0 +1,50 @@
+﻿<Window x:Class="Autoservice.History"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Autoservice"
+        mc:Ignorable="d"
+        Title="История продаж" Height="442" Width="569">
+    <Grid>
+        <StackPanel 
+        Orientation="Vertical" 
+        Margin="5">
+
+                <!-- список товаров, по ТЗ мы должны обеспечить в этом окне выбор товара -->
+                <ComboBox
+            Name="ProductsComboBox"
+            SelectionChanged="ProductsComboBox_SelectionChanged"
+            SelectedIndex="{Binding SelectedProductIndex}"
+            ItemsSource="{Binding ProductsList}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <!-- опять же по ТЗ мы должны показать информацию о товаре, но не написано какую - я показываю цену -->
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Цена товара: "/>
+                    <Label Content="{Binding SelectedProduct.Price}"/>
+                </StackPanel>
+
+                <!-- список истории продаж -->
+                <DataGrid 
+            Name="HistoryDataGrid"
+            CanUserAddRows="False"
+            ItemsSource="{Binding HistoryList}"
+            AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                    Header="Дата продажи"
+                    Binding="{Binding DateSale}"/>
+                        <DataGridTextColumn 
+                    Header="Количество"
+                    Binding="{Binding Kolichestvo}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+</Window>
